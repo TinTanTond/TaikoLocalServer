@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using SharedProject.Models;
 using SharedProject.Models.Responses;
 using TaikoLocalServer.Filters;
@@ -12,9 +13,23 @@ public class UsersController(IUserDatumService userDatumService, IAuthService au
     IOptions<AuthSettings> settings) : BaseController<UsersController>
 {
     private readonly AuthSettings authSettings = settings.Value;
+
+    [HttpGet("Current")]
+    [Authorize(Policy = "AuthConditional")]
+    public async Task<IActionResult> GetUser()
+    {
+        var tokenInfo = authService.ExtractTokenInfo(HttpContext);
+        if (tokenInfo == null)
+        {
+            return Empty;
+        }
+        var user = await authService.GetUserByBaid(tokenInfo.Value.baid);
+        return Ok(user);
+    }
     
     [HttpGet("{baid}")]
-    [ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    // [ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    [Authorize(Policy = "AuthConditionalAdmin")]
     public async Task<User?> GetUser(uint baid)
     {
         if (authSettings.AuthenticationRequired)
@@ -36,7 +51,8 @@ public class UsersController(IUserDatumService userDatumService, IAuthService au
     }
     
     [HttpGet]
-    [ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    //[ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    [Authorize(Policy = "AuthConditionalAdmin")]
     public async Task<ActionResult<UsersResponse>> GetUsers([FromQuery] int page = 1, [FromQuery] int limit = 10, [FromQuery] string? searchTerm = null)
     {
         if (page < 1)
@@ -67,7 +83,8 @@ public class UsersController(IUserDatumService userDatumService, IAuthService au
     }
     
     [HttpDelete("{baid}")]
-    [ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    //[ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    [Authorize(Policy = "AuthConditionalAdmin")]
     public async Task<IActionResult> DeleteUser(uint baid)
     {
         if (authSettings.AuthenticationRequired)

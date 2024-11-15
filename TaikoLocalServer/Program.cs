@@ -17,6 +17,9 @@ using TaikoLocalServer.Controllers.Api;
 using TaikoLocalServer.Filters;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.OpenApi.Models;
+using TaikoLocalServer.Conventions;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -117,9 +120,40 @@ try
         };
     });
 
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("AuthConditional", policy =>
+        {
+            var authRequired = builder.Configuration.GetSection(nameof(AuthSettings)).GetValue<bool>("AuthenticationRequired");
+            if (authRequired)
+            {
+                policy.RequireAuthenticatedUser();
+            }
+            else
+            {
+                policy.RequireAssertion(_ => true);
+            }
+        });
+        options.AddPolicy("AuthConditionalAdmin", policy =>
+        {
+            var authRequired = builder.Configuration.GetSection(nameof(AuthSettings)).GetValue<bool>("AuthenticationRequired");
+            if (authRequired)
+            {
+                policy.RequireRole("Admin");
+            }
+            else
+            {
+                policy.RequireAssertion(_ => true);
+            }
+        });
+    });
+
     builder.Services.AddScoped<AuthorizeIfRequiredAttribute>(); // Register the custom attribute
 
-    builder.Services.AddControllers().AddProtoBufNet();
+    builder.Services.AddControllers(options =>
+        {
+            options.Conventions.Add(new ControllerHidingConvention());
+        }).AddProtoBufNet();
     builder.Services.AddDbContext<TaikoDbContext>(option =>
     {
         var dbName = builder.Configuration["DbFileName"];
@@ -145,6 +179,32 @@ try
     builder.Services.AddTaikoDbServices();
     builder.Services.AddSingleton<SongBestResponseMapper>();
 
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Name = "Bearer",
+            BearerFormat = "JWT",
+            Scheme = "bearer",
+            Description = "Specify the authorization token.",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+        });
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+            { 
+                new OpenApiSecurityScheme 
+                { 
+                    Reference = new OpenApiReference 
+                    { 
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer" 
+                    } 
+                },
+                []
+            } 
+        });
+    });
+    
     var app = builder.Build();
 
     // Migrate db
@@ -168,6 +228,12 @@ try
     gameDataService.ThrowIfNull();
     await gameDataService.InitializeAsync();
 
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+    
     // Use response compression
     app.UseResponseCompression();
 
@@ -184,10 +250,14 @@ try
     app.UseRouting();
 
     // Enable Authentication and Authorization middleware
-    app.UseAuthentication();
+    if (builder.Configuration.GetSection(nameof(AuthSettings)).GetValue<bool>("AuthenticationRequired"))
+    {
+        app.UseAuthentication();
+    }
     app.UseAuthorization();
 
     app.UseHttpLogging();
+    
     app.Use(async (context, next) =>
     {
         await next();

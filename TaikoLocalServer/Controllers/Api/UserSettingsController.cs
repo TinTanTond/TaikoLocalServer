@@ -55,8 +55,8 @@ public class UserSettingsController(IUserDatumService userDatumService, IAuthSer
             {
                 Baid = user.Baid,
                 AchievementDisplayDifficulty = user.AchievementDisplayDifficulty,
-                IsDisplayAchievement = user.DisplayAchievement,
-                IsDisplayDanOnNamePlate = user.DisplayDan,
+                DisplayAchievement = user.DisplayAchievement,
+                DisplayDan = user.DisplayDan,
                 DifficultySettingCourse = user.DifficultySettingCourse,
                 DifficultySettingStar = user.DifficultySettingStar,
                 DifficultySettingSort = user.DifficultySettingSort,
@@ -64,25 +64,25 @@ public class UserSettingsController(IUserDatumService userDatumService, IAuthSer
                 IsSkipOn = user.IsSkipOn,
                 NotesPosition = user.NotesPosition,
                 PlaySetting = PlaySettingConverter.ShortToPlaySetting(user.OptionSetting),
-                ToneId = user.SelectedToneId,
+                SelectedToneId = user.SelectedToneId,
                 MyDonName = user.MyDonName,
                 MyDonNameLanguage = user.MyDonNameLanguage,
                 Title = user.Title,
                 TitlePlateId = user.TitlePlateId,
-                Kigurumi = user.CurrentKigurumi,
-                Head = user.CurrentHead,
-                Body = user.CurrentBody,
-                Face = user.CurrentFace,
-                Puchi = user.CurrentPuchi,
+                CurrentKigurumi = user.CurrentKigurumi,
+                CurrentHead = user.CurrentHead,
+                CurrentBody = user.CurrentBody,
+                CurrentFace = user.CurrentFace,
+                CurrentPuchi = user.CurrentPuchi,
                 UnlockedKigurumi = costumeUnlockData[0],
                 UnlockedHead = costumeUnlockData[1],
                 UnlockedBody = costumeUnlockData[2],
                 UnlockedFace = costumeUnlockData[3],
                 UnlockedPuchi = costumeUnlockData[4],
                 UnlockedTitle = unlockedTitle,
-                BodyColor = user.ColorBody,
-                FaceColor = user.ColorFace,
-                LimbColor = user.ColorLimb,
+                ColorBody = user.ColorBody,
+                ColorFace = user.ColorFace,
+                ColorLimb = user.ColorLimb,
                 LastPlayDateTime = user.LastPlayDatetime
             };
             response.Add(userSetting);
@@ -135,8 +135,8 @@ public class UserSettingsController(IUserDatumService userDatumService, IAuthSer
         {
             Baid = user.Baid,
             AchievementDisplayDifficulty = user.AchievementDisplayDifficulty,
-            IsDisplayAchievement = user.DisplayAchievement,
-            IsDisplayDanOnNamePlate = user.DisplayDan,
+            DisplayAchievement = user.DisplayAchievement,
+            DisplayDan = user.DisplayDan,
             DifficultySettingCourse = user.DifficultySettingCourse,
             DifficultySettingStar = user.DifficultySettingStar,
             DifficultySettingSort = user.DifficultySettingSort,
@@ -144,25 +144,25 @@ public class UserSettingsController(IUserDatumService userDatumService, IAuthSer
             IsSkipOn = user.IsSkipOn,
             NotesPosition = user.NotesPosition,
             PlaySetting = PlaySettingConverter.ShortToPlaySetting(user.OptionSetting),
-            ToneId = user.SelectedToneId,
+            SelectedToneId = user.SelectedToneId,
             MyDonName = user.MyDonName,
             MyDonNameLanguage = user.MyDonNameLanguage,
             Title = user.Title,
             TitlePlateId = user.TitlePlateId,
-            Kigurumi = user.CurrentKigurumi,
-            Head = user.CurrentHead,
-            Body = user.CurrentBody,
-            Face = user.CurrentFace,
-            Puchi = user.CurrentPuchi,
+            CurrentKigurumi = user.CurrentKigurumi,
+            CurrentHead = user.CurrentHead,
+            CurrentBody = user.CurrentBody,
+            CurrentFace = user.CurrentFace,
+            CurrentPuchi = user.CurrentPuchi,
             UnlockedKigurumi = costumeUnlockData[0],
             UnlockedHead = costumeUnlockData[1],
             UnlockedBody = costumeUnlockData[2],
             UnlockedFace = costumeUnlockData[3],
             UnlockedPuchi = costumeUnlockData[4],
             UnlockedTitle = unlockedTitle,
-            BodyColor = user.ColorBody,
-            FaceColor = user.ColorFace,
-            LimbColor = user.ColorLimb,
+            ColorBody = user.ColorBody,
+            ColorFace = user.ColorFace,
+            ColorLimb = user.ColorLimb,
             LastPlayDateTime = user.LastPlayDatetime
         };
         return Ok(response);
@@ -195,31 +195,31 @@ public class UserSettingsController(IUserDatumService userDatumService, IAuthSer
 
         user.IsSkipOn = userSetting.IsSkipOn;
         user.IsVoiceOn = userSetting.IsVoiceOn;
-        user.DisplayAchievement = userSetting.IsDisplayAchievement;
-        user.DisplayDan = userSetting.IsDisplayDanOnNamePlate;
+        user.DisplayAchievement = userSetting.DisplayAchievement;
+        user.DisplayDan = userSetting.DisplayDan;
         user.DifficultySettingCourse = userSetting.DifficultySettingCourse;
         user.DifficultySettingStar = userSetting.DifficultySettingStar;
         user.DifficultySettingSort = userSetting.DifficultySettingSort;
         user.NotesPosition = userSetting.NotesPosition;
-        user.SelectedToneId = userSetting.ToneId;
+        user.SelectedToneId = userSetting.SelectedToneId;
         user.AchievementDisplayDifficulty = userSetting.AchievementDisplayDifficulty;
         user.OptionSetting = PlaySettingConverter.PlaySettingToShort(userSetting.PlaySetting);
         user.MyDonName = userSetting.MyDonName;
         user.MyDonNameLanguage = userSetting.MyDonNameLanguage;
         user.Title = userSetting.Title;
         user.TitlePlateId = userSetting.TitlePlateId;
-        user.ColorBody = userSetting.BodyColor;
-        user.ColorFace = userSetting.FaceColor;
-        user.ColorLimb = userSetting.LimbColor;
-        user.CurrentKigurumi = userSetting.Kigurumi;
-        user.CurrentHead = userSetting.Head;
-        user.CurrentBody = userSetting.Body;
-        user.CurrentFace = userSetting.Face;
-        user.CurrentPuchi = userSetting.Puchi;
+        user.ColorBody = userSetting.ColorBody;
+        user.ColorFace = userSetting.ColorFace;
+        user.ColorLimb = userSetting.ColorLimb;
+        user.CurrentKigurumi = userSetting.CurrentKigurumi;
+        user.CurrentHead = userSetting.CurrentHead;
+        user.CurrentBody = userSetting.CurrentBody;
+        user.CurrentFace = userSetting.CurrentFace;
+        user.CurrentPuchi = userSetting.CurrentPuchi;
 
         // If a locked tone is selected, unlock it
         var toneFlg = user.ToneFlgArray;
-        toneFlg = toneFlg.Append(0u).Append(userSetting.ToneId).Distinct().ToList();
+        toneFlg = toneFlg.Append(0u).Append(userSetting.SelectedToneId).Distinct().ToList();
 
         user.ToneFlgArray = toneFlg;
 

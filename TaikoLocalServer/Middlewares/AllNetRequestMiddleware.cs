@@ -3,15 +3,8 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace TaikoLocalServer.Middlewares;
 
-public class AllNetRequestMiddleware
+public class AllNetRequestMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate next;
-
-    public AllNetRequestMiddleware(RequestDelegate next)
-    {
-        this.next = next;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
         if (context.Request.Method != WebRequestMethods.Http.Post)

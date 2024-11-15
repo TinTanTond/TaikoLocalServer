@@ -47,5 +47,7 @@ namespace GameDatabase.Entities
         public List<uint>  UnlockedSongIdList           { get; set; } = [];
         public List<uint>  UnlockedUraSongIdList        { get; set; } = [];
         public bool        IsAdmin                      { get; set; }
+        
+        public virtual List<Card> Cards { get; set; } = [];
     }
 }

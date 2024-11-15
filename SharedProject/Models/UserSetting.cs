@@ -6,11 +6,11 @@ public class UserSetting
 {
     public uint Baid { get; set; }
     
-    public uint ToneId { get; set; }
+    public uint SelectedToneId { get; set; }
 
-    public bool IsDisplayAchievement { get; set; }
+    public bool DisplayAchievement { get; set; }
 
-    public bool IsDisplayDanOnNamePlate { get; set; }
+    public bool DisplayDan { get; set; }
 
     public uint DifficultySettingCourse { get; set; }
 
@@ -36,15 +36,15 @@ public class UserSetting
 
     public uint TitlePlateId { get; set; }
 
-    public uint Kigurumi { get; set; }
+    public uint CurrentKigurumi { get; set; }
 
-    public uint Head { get; set; }
+    public uint CurrentHead { get; set; }
 
-    public uint Body { get; set; }
+    public uint CurrentBody { get; set; }
 
-    public uint Face { get; set; }
+    public uint CurrentFace { get; set; }
 
-    public uint Puchi { get; set; }
+    public uint CurrentPuchi { get; set; }
 
     public List<uint> UnlockedKigurumi { get; set; } = new();
 
@@ -58,11 +58,11 @@ public class UserSetting
     
     public List<uint> UnlockedTitle { get; set; } = new();
 
-    public uint FaceColor { get; set; }
+    public uint ColorFace { get; set; }
 
-    public uint BodyColor { get; set; }
+    public uint ColorBody { get; set; }
 
-    public uint LimbColor { get; set; }
+    public uint ColorLimb { get; set; }
     
     public DateTime LastPlayDateTime { get; set; }
 }

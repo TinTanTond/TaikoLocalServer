@@ -6,7 +6,6 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
 using TaikoLocalServer.Settings;
-using TaikoWebUI.Shared.Models;
 using Throw;
 
 namespace TaikoLocalServer.Services;

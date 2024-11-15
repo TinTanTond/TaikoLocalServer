@@ -124,6 +124,9 @@ namespace GameDatabase.Context
 
                 entity.Property(e => e.AchievementDisplayDifficulty)
                     .HasConversion<uint>();
+                entity.HasMany(e => e.Cards)
+                    .WithOne(e => e.Ba)
+                    .HasForeignKey(e => e.Baid);
             });
 
             OnModelCreatingPartial(modelBuilder);

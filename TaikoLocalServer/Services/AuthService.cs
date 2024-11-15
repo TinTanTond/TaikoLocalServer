@@ -5,10 +5,11 @@ using SharedProject.Models;
 using SharedProject.Models.Responses;
 using Swan.Mapping;
 using SharedProject.Utils;
+using TaikoLocalServer.Mappers;
 
 namespace TaikoLocalServer.Services;
 
-public class AuthService(TaikoDbContext context) : IAuthService
+public class AuthService(TaikoDbContext context, ILogger<AuthService> logger) : IAuthService
 {
     public async Task<Card?> GetCardByAccessCode(string accessCode)
     {
@@ -17,13 +18,13 @@ public class AuthService(TaikoDbContext context) : IAuthService
     
     public async Task<User?> GetUserByBaid(uint baid)
     {
-        var userDatum = await context.UserData.FindAsync(baid);
+        var userDatum = await context.UserData.Include(datum => datum.Cards)
+            .Where(datum => datum.Baid == baid).FirstOrDefaultAsync();
         if (userDatum == null) return null;
-        var cardEntries = await context.Cards.Where(card => card.Baid == baid).ToListAsync();
         return new User
         {
             Baid = userDatum.Baid,
-            AccessCodes = cardEntries.Select(card => card.AccessCode).ToList(),
+            AccessCodes = userDatum.Cards.Select(card => card.AccessCode).ToList(),
             IsAdmin = userDatum.IsAdmin
         };
     }
@@ -78,40 +79,7 @@ public class AuthService(TaikoDbContext context) : IAuthService
                 }
             }
 
-            var userSetting = new UserSetting
-            {
-                Baid = user.Baid,
-                AchievementDisplayDifficulty = user.AchievementDisplayDifficulty,
-                IsDisplayAchievement = user.DisplayAchievement,
-                IsDisplayDanOnNamePlate = user.DisplayDan,
-                DifficultySettingCourse = user.DifficultySettingCourse,
-                DifficultySettingStar = user.DifficultySettingStar,
-                DifficultySettingSort = user.DifficultySettingSort,
-                IsVoiceOn = user.IsVoiceOn,
-                IsSkipOn = user.IsSkipOn,
-                NotesPosition = user.NotesPosition,
-                PlaySetting = PlaySettingConverter.ShortToPlaySetting(user.OptionSetting),
-                ToneId = user.SelectedToneId,
-                MyDonName = user.MyDonName,
-                MyDonNameLanguage = user.MyDonNameLanguage,
-                Title = user.Title,
-                TitlePlateId = user.TitlePlateId,
-                Kigurumi = user.CurrentKigurumi,
-                Head = user.CurrentHead,
-                Body = user.CurrentBody,
-                Face = user.CurrentFace,
-                Puchi = user.CurrentPuchi,
-                UnlockedKigurumi = costumeUnlockData[0],
-                UnlockedHead = costumeUnlockData[1],
-                UnlockedBody = costumeUnlockData[2],
-                UnlockedFace = costumeUnlockData[3],
-                UnlockedPuchi = costumeUnlockData[4],
-                UnlockedTitle = unlockedTitle,
-                BodyColor = user.ColorBody,
-                FaceColor = user.ColorFace,
-                LimbColor = user.ColorLimb,
-                LastPlayDateTime = user.LastPlayDatetime
-            };
+            var userSetting = UserSettingMapper.MapToUserSetting(user);
 
             users.Add(new User
             {
@@ -192,7 +160,7 @@ public class AuthService(TaikoDbContext context) : IAuthService
         var authHeader = httpContext.Request.Headers.Authorization.FirstOrDefault();
         if (authHeader == null || !authHeader.StartsWith("Bearer "))
         {
-            Console.WriteLine("Invalid auth header");
+            logger.LogWarning("Invalid auth header");
             return null;
         }
 
@@ -200,14 +168,14 @@ public class AuthService(TaikoDbContext context) : IAuthService
         var handler = new JwtSecurityTokenHandler();
         if (!handler.CanReadToken(token))
         {
-            Console.WriteLine("Invalid token");
+            logger.LogWarning("Invalid token");
             return null;
         }
         
         var jwtToken = handler.ReadJwtToken(token);
         if (jwtToken.ValidTo < DateTime.UtcNow)
         {
-            Console.WriteLine("Token expired");
+            logger.LogWarning("Token expired");
             return null;
         }
         
@@ -216,13 +184,13 @@ public class AuthService(TaikoDbContext context) : IAuthService
 
         if (claimBaid == null || claimRole == null)
         {
-            Console.WriteLine("Invalid token claims");
+            logger.LogWarning("Invalid token claims");
             return null;
         }
 
         if (!uint.TryParse(claimBaid, out var baid))
         {
-            Console.WriteLine("Invalid baid");
+            logger.LogWarning("Invalid baid");
             return null;
         }
         var isAdmin = claimRole == "Admin";

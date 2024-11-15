@@ -167,7 +167,8 @@ public class AuthController(IAuthService authService, IUserDatumService userDatu
     }
 
     [HttpPost("ChangePassword")]
-    [ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    //[ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    [Authorize(Policy = "AuthConditional")]
     public async Task<IActionResult> ChangePassword(ChangePasswordRequest changePasswordRequest)
     {
         if (authSettings.AuthenticationRequired)
@@ -220,7 +221,8 @@ public class AuthController(IAuthService authService, IUserDatumService userDatu
     }
     
     [HttpPost("ResetPassword")]
-    [ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    //[ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    [Authorize(Policy = "AuthConditionalAdmin")]
     public async Task<IActionResult> ResetPassword(ResetPasswordRequest resetPasswordRequest)
     {
         if (authSettings.AuthenticationRequired)
@@ -248,7 +250,8 @@ public class AuthController(IAuthService authService, IUserDatumService userDatu
     }
 
     [HttpPost("GenerateOtp")]
-    [ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    //[ServiceFilter(typeof(AuthorizeIfRequiredAttribute))]
+    [Authorize(Policy = "AuthConditionalAdmin")]    
     public IActionResult GenerateOtp(GenerateOtpRequest generateOtpRequest)
     {
         if (authSettings.AuthenticationRequired)
