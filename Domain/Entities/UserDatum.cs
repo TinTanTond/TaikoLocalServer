@@ -49,5 +49,7 @@ namespace Domain.Entities
         public bool IsAdmin { get; set; }
 
         public virtual List<Card> Cards { get; set; } = [];
+        
+        public virtual Credential? Credential { get; set; }
     }
 }

@@ -7,8 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Handlers\" />
-      <Folder Include="Interfaces\" />
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+      <PackageReference Include="Otp.NET" Version="1.4.0" />
+      <PackageReference Include="Riok.Mapperly" Version="4.1.1-next.0" />
+      <PackageReference Include="Swan.Core" Version="7.0.0-beta.2" />
+      <PackageReference Include="Throw" Version="1.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,12 @@
+﻿using System.Text.Json.Serialization;
+
+namespace Domain.Models;
+
+public class DonCosRewardEntry
+{
+	[JsonPropertyName("cosType")]
+	public string CosType { get; set; } = null!;
+
+	[JsonPropertyName("uniqueId")]
+	public uint UniqueId { get; set; }
+}

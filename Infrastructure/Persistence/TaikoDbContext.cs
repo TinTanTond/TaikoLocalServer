@@ -1,11 +1,12 @@
-﻿using Domain.Entities;
+﻿using Application.Interfaces;
+using Domain.Entities;
 using EntityFramework.Exceptions.Sqlite;
 using Infrastructure.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence
 {
-    public partial class TaikoDbContext : DbContext
+    public partial class TaikoDbContext : DbContext, ITaikoDbContext
     {
         private string? dbFilePath;
         public TaikoDbContext()
@@ -66,9 +67,9 @@ namespace Infrastructure.Persistence
                 entity.ToTable("Credential");
                 
                 entity.HasOne(d => d.Ba)
-                    .WithMany()
-                    .HasPrincipalKey(p => p.Baid)
-                    .HasForeignKey(d => d.Baid)
+                    .WithOne(c => c.Credential)
+                    // .HasPrincipalKey<UserDatum>(p => p.Baid)
+                    .HasForeignKey<Credential>(d => d.Baid)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
