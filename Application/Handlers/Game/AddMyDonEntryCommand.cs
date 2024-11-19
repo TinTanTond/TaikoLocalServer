@@ -1,6 +1,4 @@
-﻿using Application.Models.Game;
-
-namespace Application.Handlers.Game;
+﻿namespace Application.Handlers.Game;
 public record AddMyDonEntryCommand(string AccessCode, string Name, uint Language) : IRequest<CommonMyDonEntryResponse>;
 
 #pragma warning disable CS9113 // Parameter is unread.

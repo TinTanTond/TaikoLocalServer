@@ -1,15 +1,14 @@
-﻿using Application.Models.Game;
+﻿using System.Diagnostics.CodeAnalysis;
 using Riok.Mapperly.Abstractions;
 
 namespace Application.Mappers;
 
 [Mapper]
+[SuppressMessage("Mapper", "RMG020:Source member is not mapped to any target member")]
 public static partial class AiScoreMapper
 {
-#pragma warning disable RMG020
     [MapProperty(nameof(AiScoreDatum.AiSectionScoreData), nameof(CommonAiScoreResponse.AryBestSectionDatas))]
     public static partial CommonAiScoreResponse MapToCommonAiScoreResponse(AiScoreDatum datum);
-#pragma warning restore RMG020
 
     public static CommonAiScoreResponse MapAsSuccess(AiScoreDatum datum)
     {

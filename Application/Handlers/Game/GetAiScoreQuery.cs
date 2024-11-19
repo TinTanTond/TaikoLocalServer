@@ -1,5 +1,4 @@
 ﻿using Application.Mappers;
-using Application.Models.Game;
 
 namespace Application.Handlers.Game;
 

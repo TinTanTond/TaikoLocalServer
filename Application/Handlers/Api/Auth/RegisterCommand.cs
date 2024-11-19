@@ -1,6 +1,4 @@
-﻿using Application.Models.Api;
-
-namespace Application.Handlers.Api;
+﻿namespace Application.Handlers.Api.Auth;
 
 public record RegisterCommand : IRequest<ApiResult<bool>>
 {

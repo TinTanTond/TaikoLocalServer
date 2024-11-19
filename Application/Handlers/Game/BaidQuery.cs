@@ -1,6 +1,4 @@
-﻿using Application.Models.Game;
-
-namespace Application.Handlers.Game;
+﻿namespace Application.Handlers.Game;
 
 public record BaidQuery(string AccessCode) : IRequest<CommonBaidResponse>;
 

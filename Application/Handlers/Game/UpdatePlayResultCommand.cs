@@ -1,7 +1,4 @@
-﻿using Application.Models.Game;
-using SharedProject.Utils;
-
-namespace Application.Handlers.Game;
+﻿namespace Application.Handlers.Game;
 
 public record UpdatePlayResultCommand(uint Baid, CommonPlayResultData PlayResultData) : IRequest<uint>;
 

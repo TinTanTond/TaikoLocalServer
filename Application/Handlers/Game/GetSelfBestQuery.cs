@@ -1,5 +1,4 @@
-﻿using Application.Models.Game;
-using Swan.Formatters;
+﻿using Swan.Formatters;
 
 namespace Application.Handlers.Game;
 

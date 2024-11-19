@@ -1,7 +1,5 @@
-﻿using Application.Models.Api;
+﻿namespace Application.Handlers.Api.Auth;
 
-namespace Application.Handlers.Api;
-using BCrypt.Net;
 public record LoginCommand(string AccessCode, string Password): IRequest<ApiResult<string>>;
 
 public class LoginCommandHandler(ITaikoDbContext context, IJwtTokenService jwtTokenService,
@@ -25,7 +23,7 @@ public class LoginCommandHandler(ITaikoDbContext context, IJwtTokenService jwtTo
             return ApiResult.Failed<string>("User not registered");
         }
 
-        if (!BCrypt.Verify(request.Password, credential.Password))
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, credential.Password))
         {
             return ApiResult.Failed<string>("Invalid password");
         }

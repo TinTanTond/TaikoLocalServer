@@ -1,6 +1,8 @@
 ﻿// Global using directives
 
 global using Application.Interfaces;
+global using Application.Models.Api;
+global using Application.Models.Game;
 global using Application.Utils;
 global using Domain.Common;
 global using Domain.Entities;

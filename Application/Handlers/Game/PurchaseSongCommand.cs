@@ -1,6 +1,4 @@
-﻿using Application.Models.Game;
-
-namespace Application.Handlers.Game;
+﻿namespace Application.Handlers.Game;
 
 public record PurchaseSongCommand(uint Baid, uint SongNo, uint Type, uint TokenId, uint Price) : IRequest<CommonSongPurchaseResponse>;
 

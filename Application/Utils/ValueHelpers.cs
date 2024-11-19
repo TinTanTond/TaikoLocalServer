@@ -1,4 +1,4 @@
-﻿namespace SharedProject.Utils;
+﻿namespace Application.Utils;
 
 public static class ValueHelpers
 {
