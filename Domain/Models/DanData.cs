@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Domain.Models.GameData;
 
 namespace Domain.Models;
 

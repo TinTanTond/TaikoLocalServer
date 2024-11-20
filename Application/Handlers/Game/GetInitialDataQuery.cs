@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using Domain.Models.GameData;
 using Domain.Settings;
 using Microsoft.Extensions.Options;
 

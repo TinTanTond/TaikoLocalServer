@@ -1,6 +1,6 @@
 ﻿using Domain.Enums;
 
-namespace Domain.Models;
+namespace Domain.Models.GameData;
 
 public class MusicDetail
 {

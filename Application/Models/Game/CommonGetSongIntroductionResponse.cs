@@ -1,4 +1,6 @@
-﻿namespace Application.Models.Game;
+﻿using Domain.Models.GameData;
+
+namespace Application.Models.Game;
 
 public class CommonGetSongIntroductionResponse
 {

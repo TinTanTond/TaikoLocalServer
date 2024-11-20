@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.Models.GameData;
 
 public interface IVerupNo
 {

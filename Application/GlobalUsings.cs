@@ -8,6 +8,8 @@ global using Domain.Common;
 global using Domain.Entities;
 global using Domain.Enums;
 global using Domain.Models;
+global using Domain.Models.Base;
+global using Domain.Models.GameData;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Logging;

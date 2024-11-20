@@ -5,6 +5,7 @@ using System.Text.Json;
 using Application.Interfaces;
 using Domain.Common;
 using Domain.Models;
+using Domain.Models.GameData;
 using Domain.Settings;
 using Infrastructure.Utils;
 using Microsoft.Extensions.Options;

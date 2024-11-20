@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using Domain.Models.GameData;
 
 namespace Application.Interfaces;
 

@@ -64,5 +64,5 @@ public class UserSetting
 
     public uint ColorLimb { get; set; }
     
-    public DateTime LastPlayDateTime { get; set; }
+    public DateTime LastPlayDatetime { get; set; }
 }

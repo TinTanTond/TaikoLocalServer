@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Domain.Models;
+namespace Domain.Models.GameData;
 
 public class WordListEntry
 {
