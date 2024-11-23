@@ -4,14 +4,143 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+      <Version>2.0.0-beta</Version>
+      <LangVersion>12</LangVersion>
+      <EnableConfigurationBindingGenerator>false</EnableConfigurationBindingGenerator>
+      <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'!='Debug'">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BuildTime>$([System.DateTime]::UtcNow.ToString("yyyy-MM-dd HH:mm:ss"))</BuildTime>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>BuildTime</_Parameter1>
+      <_Parameter2>$(BuildTime)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.4.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.11" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.11" />
+        <PackageReference Include="protobuf-net" Version="3.2.45" />
+        <PackageReference Include="protobuf-net.AspNetCore" Version="3.2.12" />
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+        <PackageReference Include="Serilog.Expressions" Version="5.1.0-dev-00186" />
+        <PackageReference Include="Serilog.Sinks.File.Header" Version="1.0.2" />
+        <PackageReference Include="SharpZipLib" Version="1.4.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <None Include="Configurations\Database.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Include="Configurations\DataSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Include="Configurations\Kestrel.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Include="Configurations\Logging.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Include="Configurations\ServerSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Certificates\cert.pfx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Certificates\root.pfx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="wwwroot\data\datatable-bak\don_cos_reward.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable-bak\musicinfo.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable-bak\music_order.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable-bak\neiro.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable-bak\shougou.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable-bak\wordlist.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable\don_cos_reward.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable\musicinfo.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable\music_order.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable\neiro.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable\shougou.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\datatable\wordlist.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\dan_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\event_folder_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\gaiden_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\intro_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\locked_costume_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\locked_songs_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\locked_title_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\movie_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\qrcode_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\shop_folder_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\data\token_data.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

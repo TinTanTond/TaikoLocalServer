@@ -1,13 +1,11 @@
 ﻿namespace Application.Handlers.Api.Auth;
 
-public record RegisterCommand : IRequest<ApiResult<bool>>
-{
-    public string AccessCode { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
-    public bool RegisterWithLastPlayTime { get; set; }
-    public DateTime LastPlayDateTime { get; set; }
-    public string InviteCode { get; set; } = string.Empty;
-}
+public record RegisterCommand(
+    string AccessCode,
+    string Password,
+    bool RegisterWithLastPlayTime,
+    DateTime LastPlayDateTime,
+    string InviteCode) : IRequest<ApiResult<bool>>;
 
 public class RegisterCommandHandler(ITaikoDbContext context, ILogger<RegisterCommandHandler> logger)
     : IRequestHandler<RegisterCommand, ApiResult<bool>>

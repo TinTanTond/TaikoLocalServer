@@ -1,6 +1,6 @@
 ﻿namespace Application.Handlers.Api.Auth;
 
-public record ChangePasswordCommand(string AccessCode, string OldPassword, string NewPassword) : IRequest<ApiResult<bool>>;
+public record ChangePasswordCommand(uint Baid, string OldPassword, string NewPassword) : IRequest<ApiResult<bool>>;
 
 
 public class ChangePasswordCommandHandler(ITaikoDbContext context, ILogger<ChangePasswordCommandHandler> logger)
@@ -8,15 +8,15 @@ public class ChangePasswordCommandHandler(ITaikoDbContext context, ILogger<Chang
 {
     public async Task<ApiResult<bool>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
     {
-        var card = await context.Cards.Include(card => card.Ba)
-            .ThenInclude(user => user!.Credential)
-            .FirstOrDefaultAsync(card => card.AccessCode == request.AccessCode, cancellationToken);
-        if (card is null)
+        var user = await context.UserData.Include(u => u.Credential)
+            .FirstOrDefaultAsync(u => u.Baid == request.Baid, cancellationToken);
+
+        if (user is null)
         {
-            return ApiResult.Failed<bool>("Invalid access code");
+            return ApiResult.Failed<bool>("User not found");
         }
 
-        var credential = card.Ba?.Credential;
+        var credential = user.Credential;
         if (credential is null || credential.Password == string.Empty)
         {
             return ApiResult.Failed<bool>("User not registered");

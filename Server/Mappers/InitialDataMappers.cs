@@ -1,0 +1,11 @@
+﻿using Riok.Mapperly.Abstractions;
+
+namespace Server.Mappers;
+
+[Mapper]
+public static partial class InitialDataMappers
+{
+    public static partial InitialdatacheckResponse MapTo3906(CommonInitialDataCheckResponse response);
+    
+    public static partial Models.v3209.InitialdatacheckResponse MapTo3209(CommonInitialDataCheckResponse response);
+}

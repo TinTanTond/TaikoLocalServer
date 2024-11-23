@@ -15,10 +15,24 @@ public static partial class UserSettingMapper
     [MapProperty(nameof(UserDatum.UnlockedHead), nameof(UserSetting.UnlockedHead), Use = nameof(FixUnlock))]
     [MapProperty(nameof(UserDatum.UnlockedPuchi), nameof(UserSetting.UnlockedPuchi), Use = nameof(FixUnlock))]
     public static partial UserSetting MapToUserSetting(UserDatum user);
+    
+    [MapperIgnoreSource(nameof(UserSetting.Baid))]
+    [MapperIgnoreSource(nameof(UserSetting.UnlockedKigurumi))]
+    [MapperIgnoreSource(nameof(UserSetting.UnlockedBody))]
+    [MapperIgnoreSource(nameof(UserSetting.UnlockedFace))]
+    [MapperIgnoreSource(nameof(UserSetting.UnlockedHead))]
+    [MapperIgnoreSource(nameof(UserSetting.UnlockedPuchi))]
+    [MapProperty(nameof(UserSetting.PlaySetting), nameof(UserDatum.OptionSetting), Use = nameof(PlaySettingToShort))]
+    public static partial void UpdateUserSetting(UserSetting userSetting, UserDatum user);
 
     public static PlaySetting ShortToPlaySetting(short option)
     {
         return PlaySettingConverter.ShortToPlaySetting(option);
+    }
+    
+    public static short PlaySettingToShort(PlaySetting setting)
+    {
+        return PlaySettingConverter.PlaySettingToShort(setting);
     }
     
     public static List<uint> FixUnlock(List<uint> unlock)

@@ -12,6 +12,7 @@ public class BindAccessCodeCommandHandler(ITaikoDbContext context, ILogger<BindA
         {
             return ApiResult.Failed<bool>("Access code already exists");
         }
+        
 
         var newCard = new Card
         {

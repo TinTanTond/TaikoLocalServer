@@ -1,7 +1,7 @@
 ﻿namespace Application.Handlers.Api.User;
 
 using LeaderBoard = PaginatedResult<SongLeaderboardEntry>;
-public record GetSongLeaderboardQuery(uint SongId, Difficulty Difficulty, int Baid, int Page, int Limit) : IRequest<ApiResult<LeaderBoard>>;
+public record GetSongLeaderboardQuery(uint SongId, Difficulty Difficulty, uint Baid, int Page, int Limit) : IRequest<ApiResult<LeaderBoard>>;
 
 public class GetSongLeaderboardQueryHandler(ITaikoDbContext context, ILogger<GetSongLeaderboardQueryHandler> logger)
     : IRequestHandler<GetSongLeaderboardQuery, ApiResult<LeaderBoard>>

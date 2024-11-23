@@ -1,0 +1,11 @@
+﻿using Riok.Mapperly.Abstractions;
+
+namespace Server.Mappers;
+
+[Mapper]
+public static partial class FolderDataMappers
+{
+    public static partial GetfolderResponse MapTo3906(CommonGetFolderResponse response);
+    
+    public static partial Models.v3209.GetfolderResponse MapTo3209(CommonGetFolderResponse response);
+}
