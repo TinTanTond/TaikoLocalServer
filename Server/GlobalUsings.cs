@@ -1,5 +1,7 @@
 ﻿// Global using directives
 
+global using System.Diagnostics.CodeAnalysis;
+global using System.Security.Claims;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using ProtoBuf;
@@ -16,6 +18,9 @@ global using Domain.Entities;
 global using Domain.Models;
 global using Domain.Settings;
 global using Domain.Common;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.Extensions.Options;
+global using Riok.Mapperly.Abstractions;
 global using Server.Models;
 global using Server.Models.v3906;
 global using Server.Mappers;

@@ -5,6 +5,7 @@ namespace Shared.Models.Requests;
 
 public class GetSongLeaderboardRequest
 {
+    public uint Baid { get; set; }
     public uint SongId { get; set; }
     
     [EnumDataType(typeof(Difficulty), ErrorMessage = "Difficulty must be a valid value.")]

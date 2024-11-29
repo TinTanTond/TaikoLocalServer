@@ -3,6 +3,7 @@
 @inject NavigationManager NavigationManager
 @inject AuthService AuthService
 @using Microsoft.Extensions.Options;
+@using TaikoWebUI.Common
 @using TaikoWebUI.Settings;
 @using TaikoWebUI.Utilities;
 
@@ -25,7 +26,7 @@
 
                             <MudToggleItem Value="@difficulty.ToString()">
                                 <div class="d-flex align-center">
-                                    <img src="@($"/images/difficulty_{difficulty}.webp")" alt="@difficulty.ToString()" title="@difficulty.ToString()" style="@Constants.ICON_STYLE"/>
+                                    <img src="@($"/images/difficulty_{difficulty}.webp")" alt="@difficulty.ToString()" title="@difficulty.ToString()" style="@Constants.IconStyle"/>
                                 </div>
                             </MudToggleItem>
                         }
@@ -35,7 +36,7 @@
         </MudGrid>
     </MudCardHeader>
     <MudCardContent Class="pa-0">
-        @if (response == null || response.LeaderboardData.Count == 0)
+        @if (response == null || response.Data.Count == 0)
         {
             <MudGrid>
                 <MudItem xs="12">
@@ -79,12 +80,12 @@
                         </MudTd>
                         <MudTd>@context.BestScore</MudTd>
                         <MudTd>
-                            <img src="@($"/images/crown_{context.BestCrown}.webp")" alt="@(ScoreUtils.GetCrownText(context.BestCrown))" title="@(ScoreUtils.GetCrownText(context.BestCrown))" style="@Constants.ICON_STYLE"/>
+                            <img src="@($"/images/crown_{context.BestCrown}.webp")" alt="@(ScoreUtils.GetCrownText(context.BestCrown))" title="@(ScoreUtils.GetCrownText(context.BestCrown))" style="@Constants.IconStyle"/>
                         </MudTd>
                         <MudTd>
                             @if (context.BestScoreRank is not ScoreRank.None)
                             {
-                                <img src="@($"/images/rank_{context.BestScoreRank}.webp")" alt="@(ScoreUtils.GetRankText(context.BestScoreRank))" title="@(ScoreUtils.GetRankText(context.BestScoreRank))" style="@Constants.ICON_STYLE"/>
+                                <img src="@($"/images/rank_{context.BestScoreRank}.webp")" alt="@(ScoreUtils.GetRankText(context.BestScoreRank))" title="@(ScoreUtils.GetRankText(context.BestScoreRank))" style="@Constants.IconStyle"/>
                             }
                             else
                             {

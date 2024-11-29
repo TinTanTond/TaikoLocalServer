@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Application.Handlers.Api.Cards;
-using Microsoft.AspNetCore.Authorization;
+﻿using Application.Handlers.Api.Cards;
 using Shared.Models.Requests;
 
 namespace Server.Controllers.Api;

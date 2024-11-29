@@ -1,25 +1,22 @@
-﻿namespace TaikoWebUI.Utilities
+﻿namespace TaikoWebUI.Utilities;
+
+public partial class StringUtil
 {
-    public interface IStringUtil
+    public static List<string> SplitIntoGroups(string str, int groupSize)
     {
-        List<string> SplitIntoGroups(string str, int groupSize);
+        List<string> groups = [];
+        for (int i = 0; i < str.Length; i += groupSize)
+        {
+            groups.Add(str.Substring(i, Math.Min(groupSize, str.Length - i)));
+        }
+        return groups;
     }
 
-    public class StringUtil : IStringUtil
+    public static bool OnlyHexInString(string test)
     {
-        public List<string> SplitIntoGroups(string str, int groupSize)
-        {
-            List<string> groups = new List<string>();
-            for (int i = 0; i < str.Length; i += groupSize)
-            {
-                groups.Add(str.Substring(i, Math.Min(groupSize, str.Length - i)));
-            }
-            return groups;
-        }
-
-        public bool OnlyHexInString(string test)
-        {
-            return System.Text.RegularExpressions.Regex.IsMatch(test, @"\A\b[0-9a-fA-F]+\b\Z");
-        }
+        return HexRegex().IsMatch(test);
     }
+
+    [System.Text.RegularExpressions.GeneratedRegex(@"\A\b[0-9a-fA-F]+\b\Z")]
+    private static partial System.Text.RegularExpressions.Regex HexRegex();
 }

@@ -1,8 +1,4 @@
-﻿using System.Security.Claims;
-using Application.Handlers.Api.User;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
-using Riok.Mapperly.Abstractions;
+﻿using Application.Handlers.Api.User;
 using Shared.Models.Responses;
 
 namespace Server.Controllers.Api;

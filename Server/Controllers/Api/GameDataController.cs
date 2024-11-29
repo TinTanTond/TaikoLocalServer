@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Controllers.Api;
 

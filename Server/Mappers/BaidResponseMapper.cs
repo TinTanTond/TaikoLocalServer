@@ -1,10 +1,11 @@
-﻿using Riok.Mapperly.Abstractions;
-
-namespace Server.Mappers;
+﻿namespace Server.Mappers;
 
 [Mapper]
 public static partial class BaidResponseMapper
 {
+    [SuppressMessage("Mapper", "RMG020:Source member is not mapped to any target member")]
+    [SuppressMessage("Mapper", "RMG012:Source member was not found for target member")]
+
     public static partial BAIDResponse MapTo3906(CommonBaidResponse commonBaidResponse);
     
     public static BAIDResponse Map3906WithPostProcess(CommonBaidResponse commonBaidResponse)
@@ -26,6 +27,9 @@ public static partial class BaidResponseMapper
         return response;
     }
     
+    [SuppressMessage("Mapper", "RMG020:Source member is not mapped to any target member")]
+    [SuppressMessage("Mapper", "RMG012:Source member was not found for target member")]
+
     public static partial Models.v3209.BAIDResponse MapTo3209(CommonBaidResponse commonBaidResponse);
 
     public static Models.v3209.BAIDResponse Map3209WithPostProcess(CommonBaidResponse commonBaidResponse)

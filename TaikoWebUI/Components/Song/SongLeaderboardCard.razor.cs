@@ -1,10 +1,8 @@
-﻿
-
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using TaikoWebUI.Settings;
 
 namespace TaikoWebUI.Components.Song;
-
+using LeaderBoard = PaginatedResult<SongLeaderboardEntry>;
 public partial class SongLeaderboardCard
 {
     [Inject]
@@ -19,8 +17,8 @@ public partial class SongLeaderboardCard
     [Parameter] 
     public Difficulty Difficulty { get; set; } = Difficulty.None;
     
-    private SongLeaderboardResponse? response = null;
-    private List<SongLeaderboard> LeaderboardScores { get; set; } = new();
+    private LeaderBoard? response = null;
+    private List<SongLeaderboardEntry> LeaderboardScores { get; set; } = [];
     private int TotalRows { get; set; } = 0;
     private string SelectedDifficulty { get; set; } = "None";
     private bool isPaginationEnabled = true;
@@ -53,21 +51,29 @@ public partial class SongLeaderboardCard
     private async Task GetLeaderboardData()
     {
         isLoading = true;
-        response = await Client.GetFromJsonAsync<SongLeaderboardResponse>($"api/SongLeaderboard/{(uint)SongId}?baid={(uint)Baid}&difficulty={(uint)Difficulty}&page={currentPage}&limit={pageSize}");
+        var request = new GetSongLeaderboardRequest
+        {
+            SongId = (uint)SongId,
+            Difficulty = Difficulty,
+            Page = currentPage,
+            Limit = pageSize
+        };
+        
+        response = await Client.GetFromJsonAsync<LeaderBoard>($"api/SongLeaderboard/{(uint)SongId}");
         response.ThrowIfNull();
         
         LeaderboardScores.Clear();
-        LeaderboardScores.AddRange(response.LeaderboardData);
+        LeaderboardScores.AddRange(response.Data);
         
         // set TotalPages
         TotalPages = response.TotalPages;
     
-        if (response.UserScore != null 
-            && LeaderboardScores.All(x => x.Baid != response.UserScore.Baid) 
-            && (LeaderboardScores.Count == 0 || response.UserScore.Rank >= LeaderboardScores[0].Rank))
+        if (response.Current != null 
+            && LeaderboardScores.All(x => x.Baid != response.Current.Baid) 
+            && (LeaderboardScores.Count == 0 || response.Current.Rank >= LeaderboardScores[0].Rank))
         {
-            LeaderboardScores.Add(new SongLeaderboard()); // Add an empty row
-            LeaderboardScores.Add(response.UserScore);
+            LeaderboardScores.Add(new SongLeaderboardEntry()); // Add an empty row
+            LeaderboardScores.Add(response.Current);
         }
 
         TotalRows = LeaderboardScores.Count;
@@ -118,13 +124,13 @@ public partial class SongLeaderboardCard
     }
 
 
-    private Task UserChanged(SongLeaderboard leaderboard)
+    private Task UserChanged(SongLeaderboardEntry leaderboard)
     {
         NavigationManager.NavigateTo($"/Users/{leaderboard.Baid}/Songs/{SongId}", forceLoad: true);
         return Task.CompletedTask;
     }
 
-    private string GetActiveRowClass(SongLeaderboard leaderboard, int index)
+    private string GetActiveRowClass(SongLeaderboardEntry leaderboard, int index)
     {
         return leaderboard.Baid == Baid ? "is-current-user" : "";
     }

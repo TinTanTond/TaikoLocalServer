@@ -1,6 +1,4 @@
-﻿using Riok.Mapperly.Abstractions;
-
-namespace Server.Mappers;
+﻿namespace Server.Mappers;
 
 [Mapper]
 public static partial class AiDataResponseMapper

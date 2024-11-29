@@ -1,4 +1,5 @@
-﻿@using TaikoWebUI.Utilities;
+﻿@using TaikoWebUI.Common
+@using TaikoWebUI.Utilities;
 
 <MudCard Outlined="true" Elevation="0">
     <MudCardHeader>
@@ -67,15 +68,15 @@
                 <RowTemplate>
                     <MudTd>@context.PlayTime.ToString(Localizer["DateFormat"])</MudTd>
                     <MudTd>
-                        <img src="@ScoreUtils.GetDifficultyIcon(context.Difficulty)" alt="@context.Difficulty" title="@context.Difficulty" style="@Constants.ICON_STYLE"/>
+                        <img src="@ScoreUtils.GetDifficultyIcon(context.Difficulty)" alt="@context.Difficulty" title="@context.Difficulty" style="@Constants.IconStyle"/>
                     </MudTd>
                     <MudTd>
-                        <img src="@($"/images/crown_{context.Crown}.webp")" alt="@(ScoreUtils.GetCrownText(context.Crown))" title="@(ScoreUtils.GetCrownText(context.Crown))" style="@Constants.ICON_STYLE"/>
+                        <img src="@($"/images/crown_{context.Crown}.webp")" alt="@(ScoreUtils.GetCrownText(context.Crown))" title="@(ScoreUtils.GetCrownText(context.Crown))" style="@Constants.IconStyle"/>
                     </MudTd>
                     <MudTd>
                         @if (context.ScoreRank is not ScoreRank.None)
                         {
-                            <img src="@($"/images/rank_{context.ScoreRank}.webp")" alt="@(ScoreUtils.GetRankText(context.ScoreRank))" title="@(ScoreUtils.GetRankText(context.ScoreRank))" style="@Constants.ICON_STYLE"/>
+                            <img src="@($"/images/rank_{context.ScoreRank}.webp")" alt="@(ScoreUtils.GetRankText(context.ScoreRank))" title="@(ScoreUtils.GetRankText(context.ScoreRank))" style="@Constants.IconStyle"/>
                         }
                     </MudTd>
                     <MudTd>@context.Score</MudTd>
@@ -100,7 +101,7 @@
 
 @code {
     [Parameter] 
-    public List<SongHistoryData> Items { get; set; } = new();
+    public List<SongHistoryData> Items { get; set; } = [];
 
     private string GetActiveRowClass(SongHistoryData songHistory, int index)
     {

@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using Application.Handlers.Api.User;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
+﻿using Application.Handlers.Api.User;
 using Shared.Models.Requests;
 
 namespace Server.Controllers.Api;
@@ -17,6 +14,20 @@ public class SongLeaderboardController : BaseController<SongLeaderboardControlle
     {
         var baid = uint.Parse(User.Claims.First(c => c.Type == ClaimTypes.Name).Value);
         var query = new GetSongLeaderboardQuery(request.SongId, request.Difficulty, baid, request.Page, request.Limit);
+        var apiResult = await Mediator.Send(query);
+        if (!apiResult.Succeeded)
+        {
+            return BadRequest(apiResult.Message);
+        }
+
+        return Ok(apiResult.Data);
+    }
+    
+    [HttpGet("admin/{songId}")]
+    [Authorize(Policy = "AuthConditionalAdmin")]
+    public async Task<IActionResult> GetSongLeaderboardAdmin([FromQuery]GetSongLeaderboardRequest request)
+    {
+        var query = new GetSongLeaderboardQuery(request.SongId, request.Difficulty, request.Baid, request.Page, request.Limit);
         var apiResult = await Mediator.Send(query);
         if (!apiResult.Succeeded)
         {

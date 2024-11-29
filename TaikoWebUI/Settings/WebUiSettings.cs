@@ -12,8 +12,8 @@ public class WebUiSettings
 
     public MaxWidth MaxWidth { get; set; }
     
-    public SongLeaderboardSettings SongLeaderboardSettings { get; set; } = new SongLeaderboardSettings();
-    public Language[] SupportedLanguages { get; set; } = Array.Empty<Language>();
+    public SongLeaderboardSettings SongLeaderboardSettings { get; set; } = new();
+    public Language[] SupportedLanguages { get; set; } = [];
 }
 
 public class SongLeaderboardSettings

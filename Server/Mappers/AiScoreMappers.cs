@@ -1,10 +1,10 @@
-﻿using Riok.Mapperly.Abstractions;
-
-namespace Server.Mappers;
+﻿namespace Server.Mappers;
 
 [Mapper]
 public static partial class AiScoreMappers
 {
+    [SuppressMessage("Mapper", "RMG020:Source member is not mapped to any target member")]
+    [SuppressMessage("Mapper", "RMG012:Source member was not found for target member")]
     [MapProperty(nameof(AiScoreDatum.AiSectionScoreData), nameof(CommonAiScoreResponse.AryBestSectionDatas))]
     public static partial CommonAiScoreResponse MapToCommonAiScoreResponse(AiScoreDatum datum);
 

@@ -1,4 +1,5 @@
 ﻿@page "/Users/{baid:int}/Profile"
+@using TaikoWebUI.Common
 @inject HttpClient Client
 @inject IGameDataService GameDataService
 @inject IDialogService DialogService
@@ -161,7 +162,7 @@
 
                                         <MudStack Row="true">
                                             <MudSelect @bind-Value="@response.ColorBody" Label=@Localizer["Body Color"] AnchorOrigin="Origin.BottomCenter">
-                                                @for (uint i = 0; i < Constants.COSTUME_COLOR_MAX; i++)
+                                                @for (uint i = 0; i < Constants.CostumeColorMax; i++)
                                                 {
                                                     var index = i;
                                                     <MudSelectItem Value="@index">
@@ -171,7 +172,7 @@
                                                 }
                                             </MudSelect>
                                             <MudSelect @bind-Value="@response.ColorFace" Label=@Localizer["Face Color"] AnchorOrigin="Origin.BottomCenter">
-                                                @for (uint i = 0; i < Constants.COSTUME_COLOR_MAX; i++)
+                                                @for (uint i = 0; i < Constants.CostumeColorMax; i++)
                                                 {
                                                     var index = i;
                                                     <MudSelectItem Value="@index">
@@ -181,7 +182,7 @@
                                                 }
                                             </MudSelect>
                                             <MudSelect @bind-Value="@response.ColorLimb" Label=@Localizer["Limb Color"] AnchorOrigin="Origin.BottomCenter">
-                                                @for (uint i = 0; i < Constants.COSTUME_COLOR_MAX; i++)
+                                                @for (uint i = 0; i < Constants.CostumeColorMax; i++)
                                                 {
                                                     var index = i;
                                                     <MudSelectItem Value="@index">

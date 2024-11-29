@@ -1,5 +1,4 @@
 ﻿using Application.Utils;
-using Microsoft.Extensions.Options;
 
 namespace Server.Controllers.Game;
 

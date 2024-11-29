@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using Application.Handlers.Api.Data;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
+﻿using Application.Handlers.Api.Data;
 
 namespace Server.Controllers.Api;
 

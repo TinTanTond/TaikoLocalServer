@@ -1,5 +1,4 @@
 ﻿using Domain.Settings;
-using Microsoft.Extensions.Options;
 using Server.Models;
 using Server.Utils;
 

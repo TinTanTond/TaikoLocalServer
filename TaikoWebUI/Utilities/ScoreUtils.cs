@@ -1,7 +1,7 @@
 ﻿
 namespace TaikoWebUI.Utilities
 {
-    public class ScoreUtils
+    public static class ScoreUtils
     {
         public static string GetCrownText(CrownType crown)
         {

@@ -16,6 +16,8 @@ public static partial class UserSettingMapper
     [MapProperty(nameof(UserDatum.UnlockedPuchi), nameof(UserSetting.UnlockedPuchi), Use = nameof(FixUnlock))]
     public static partial UserSetting MapToUserSetting(UserDatum user);
     
+    [SuppressMessage("Mapper", "RMG020:Source member is not mapped to any target member")]
+    [SuppressMessage("Mapper", "RMG012:Source member was not found for target member")]
     [MapperIgnoreSource(nameof(UserSetting.Baid))]
     [MapperIgnoreSource(nameof(UserSetting.UnlockedKigurumi))]
     [MapperIgnoreSource(nameof(UserSetting.UnlockedBody))]

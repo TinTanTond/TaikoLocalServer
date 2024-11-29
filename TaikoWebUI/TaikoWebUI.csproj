@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <LangVersion>11</LangVersion>
+        <LangVersion>12</LangVersion>
         <WasmEnableSIMD>false</WasmEnableSIMD>
         <WasmEnableExceptionHandling>false</WasmEnableExceptionHandling>
         <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
@@ -17,6 +17,7 @@
         <PackageReference Include="CodeBeam.MudBlazor.Extensions" Version="6.9.2" />
         <PackageReference Include="Markdig" Version="0.37.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.11" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.10" PrivateAssets="all" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4" />
         <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.4" />
@@ -31,10 +32,11 @@
         <PackageReference Include="System.Private.Uri" Version="4.3.2" />
         <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
         <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+        <PackageReference Include="Throw" Version="1.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SharedProject\SharedProject.csproj" />
+        <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

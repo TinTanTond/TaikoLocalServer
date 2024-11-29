@@ -2,9 +2,8 @@
 
 namespace TaikoWebUI.Services;
 
-public class GameDataService : IGameDataService
+public class GameDataService(HttpClient client) : IGameDataService
 {
-    private readonly HttpClient client;
     private ImmutableDictionary<uint, DanData> danMap = ImmutableDictionary<uint, DanData>.Empty;
     private Dictionary<uint, MusicDetail>? musicDetailDictionary = new();
     private List<Costume>? costumeList;
@@ -16,11 +15,6 @@ public class GameDataService : IGameDataService
     
     private Dictionary<string, List<uint>>? lockedCostumeDataDictionary = new();
     private Dictionary<string, List<uint>>? lockedTitleDataDictionary = new();
-
-    public GameDataService(HttpClient client)
-    {
-        this.client = client;
-    }
 
     public async Task InitializeAsync(string dataBaseUrl)
     {
@@ -47,7 +41,7 @@ public class GameDataService : IGameDataService
             await InitializeCostumesAsync();
         }
 
-        return costumeList ?? new List<Costume>();
+        return costumeList ?? [];
     }
     
     public async Task<Dictionary<uint, Title>> GetTitleDictionary()

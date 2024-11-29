@@ -1,6 +1,5 @@
 ﻿using Domain.Settings;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Server.Models;
 using Server.Utils;
 

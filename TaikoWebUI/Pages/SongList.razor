@@ -1,4 +1,5 @@
 ﻿@using Blazored.LocalStorage
+@using TaikoWebUI.Common
 @using TaikoWebUI.Utilities;
 
 @inject IGameDataService GameDataService
@@ -70,7 +71,7 @@
                             {
                                 <MudTh>
                                     <MudTableSortLabel T="MusicDetail" SortBy="context => GameDataService.GetMusicStarLevel(musicDetailDictionary, context.SongId, difficulty)">
-                                        <img src="@ScoreUtils.GetDifficultyIcon(difficulty)" alt="@ScoreUtils.GetDifficultyTitle(difficulty)" style="@Constants.ICON_STYLE" />
+                                        <img src="@ScoreUtils.GetDifficultyIcon(difficulty)" alt="@ScoreUtils.GetDifficultyTitle(difficulty)" style="@Constants.IconStyle" />
                                     </MudTableSortLabel>
                                 </MudTh>
                             }

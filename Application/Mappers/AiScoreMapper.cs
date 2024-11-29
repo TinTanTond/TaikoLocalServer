@@ -7,6 +7,7 @@ namespace Application.Mappers;
 [SuppressMessage("Mapper", "RMG020:Source member is not mapped to any target member")]
 public static partial class AiScoreMapper
 {
+    [SuppressMessage("Mapper", "RMG012:Source member was not found for target member")]
     [MapProperty(nameof(AiScoreDatum.AiSectionScoreData), nameof(CommonAiScoreResponse.AryBestSectionDatas))]
     public static partial CommonAiScoreResponse MapToCommonAiScoreResponse(AiScoreDatum datum);
 
