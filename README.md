@@ -5,6 +5,7 @@ It is composed of two major components :
 
 - [TaikoLocalServer](./TaikoLocalServer/): The server handling the game's requests
 - [TaikoWebUI](./TaikoWebUI/): The frontend handling user profiles.
+- 
 
 ## Installation
 
